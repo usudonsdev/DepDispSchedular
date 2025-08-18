@@ -38,6 +38,8 @@ public class DepDispSchedulerApp extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Image Overlay App");
 
+        primaryStage.setResizable(false);
+
         VBox root = new VBox(5);
         root.setPadding(new Insets(10));
 
@@ -63,7 +65,7 @@ public class DepDispSchedulerApp extends Application {
 
         root.getChildren().addAll(entry, fileChooserButton, overlay);
 
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 1500, 550);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -96,8 +98,8 @@ public class DepDispSchedulerApp extends Application {
 
     // 時刻ラベルを管理するインナークラス
     private class TimeDisp {
-        private final DateTimeFormatter timeFormatterWithColon = DateTimeFormatter.ofPattern("HH:mm");
-        private final DateTimeFormatter timeFormatterWithoutColon = DateTimeFormatter.ofPattern("HH mm");
+        private final DateTimeFormatter timeFormatterWithColon = DateTimeFormatter.ofPattern("HH：mm");
+        private final DateTimeFormatter timeFormatterWithoutColon = DateTimeFormatter.ofPattern("HH　mm");
         private final Label timeDisplayLabel;
         private int lastMinuteForEvent = -1;
         private boolean colonVisible = true;
