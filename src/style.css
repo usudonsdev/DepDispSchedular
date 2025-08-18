@@ -1,0 +1,48 @@
+.root {
+    -fx-background-color: #222128; /* GTK+の背景色に合わせる */
+}
+
+.dynamic-label {
+    -fx-font-family: "Sans";
+    -fx-font-weight: bold;
+    -fx-font-size: 50px;
+    -fx-text-fill: #DDDDDD;
+}
+
+.time-display-label {
+    -fx-font-family: "Sans";
+    -fx-font-weight: bold;
+    -fx-font-size: 75px;
+    -fx-text-fill: #DDDDDD;
+}
+
+.time-text {
+    -fx-font-size: 50px;
+    -fx-font-weight: bold;
+    -fx-fill: #DDDDDD;
+}
+
+.type-text {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-fill: #DDDDDD;
+    -fx-background-color: #0000FF;
+}
+
+.detail-text {
+    -fx-font-size: 50px;
+    -fx-font-weight: bold;
+    -fx-fill: #DDDDDD;
+}
+
+.remark-text {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-fill: #F15A22; /* オレンジ色 */
+}
+
+.warning-text {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-fill: orange;
+}
