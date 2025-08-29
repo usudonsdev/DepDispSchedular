@@ -10,13 +10,15 @@
 }
 
 .time-display-label {
-    -fx-font-family: "Sans";
+    /* HTMLコンテンツをレンダリングするための基本スタイル。フォントはHTML内で制御 */
     -fx-font-weight: bold;
     -fx-font-size: 75px;
     -fx-text-fill: #DDDDDD;
 }
 
 .time-text {
+    /* 時刻部分のフォント設定を統一 */
+    -fx-font-family: "Courier New", "monospace";
     -fx-font-size: 50px;
     -fx-font-weight: bold;
     -fx-fill: #DDDDDD;
@@ -45,4 +47,22 @@
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-fill: orange;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.blinking-colon {
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
 }

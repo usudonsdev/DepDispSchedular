@@ -1,5 +1,6 @@
-import javafx.animation.KeyFrame;
+import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -60,7 +62,7 @@ public class DepDispSchedulerApp extends Application {
 
         // StackPaneに各要素を重ねて配置
         StackPane overlay = new StackPane();
-        overlay.getChildren().addAll(frame.getImageView(), taskDisp.getLabel(), timeDisp.getLabel());
+        overlay.getChildren().addAll(frame.getImageView(), taskDisp.getLabel(), timeDisp.getTimeDisplayPane());
         VBox.setVgrow(overlay, Priority.ALWAYS);
 
         root.getChildren().addAll(entry, fileChooserButton, overlay);
@@ -73,7 +75,7 @@ public class DepDispSchedulerApp extends Application {
         // 時刻表示を開始
         timeDisp.startTick();
     }
-    
+
     // CSVファイル選択時の処理
     private void onFileSelected(File file) {
         if (file == null) {
@@ -98,26 +100,36 @@ public class DepDispSchedulerApp extends Application {
 
     // 時刻ラベルを管理するインナークラス
     private class TimeDisp {
-        private final DateTimeFormatter timeFormatterWithColon = DateTimeFormatter.ofPattern("HH：mm");
-        private final DateTimeFormatter timeFormatterWithoutColon = DateTimeFormatter.ofPattern("HH　mm");
-        private final Label timeDisplayLabel;
+        private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        private final Label timeLabel;
+        private final Label colonLabel;
+        private final Label minuteLabel;
         private int lastMinuteForEvent = -1;
-        private boolean colonVisible = true;
+        private final HBox timeDisplayBox;
 
         public TimeDisp() {
-            timeDisplayLabel = new Label();
-            timeDisplayLabel.getStyleClass().add("time-display-label");
-            StackPane.setAlignment(timeDisplayLabel, Pos.BOTTOM_LEFT);
-            StackPane.setMargin(timeDisplayLabel, new Insets(0, 0, 80, 44));
-            updateTime(); // 初期表示
+            timeLabel = new Label();
+            timeLabel.getStyleClass().add("time-text");
+            colonLabel = new Label(":");
+            colonLabel.getStyleClass().add("blinking-colon");
+            minuteLabel = new Label();
+            minuteLabel.getStyleClass().add("time-text");
+            
+            timeDisplayBox = new HBox(timeLabel, colonLabel, minuteLabel);
+            timeDisplayBox.setAlignment(Pos.CENTER);
+            
+            // 左下の黒い四角の中に配置するためにマージンを調整
+            StackPane.setAlignment(timeDisplayBox, Pos.BOTTOM_LEFT);
+            StackPane.setMargin(timeDisplayBox, new Insets(0, 0, 165, 85));
         }
 
-        public Label getLabel() {
-            return timeDisplayLabel;
+        public HBox getTimeDisplayPane() {
+            return timeDisplayBox;
         }
 
         public void startTick() {
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            // 時刻を1分ごとに更新するTimeline
+            Timeline timeUpdater = new Timeline(new KeyFrame(Duration.minutes(1), event -> {
                 updateTime();
                 LocalTime now = LocalTime.now();
                 int currentMinute = now.getMinute();
@@ -126,18 +138,26 @@ public class DepDispSchedulerApp extends Application {
                     lastMinuteForEvent = currentMinute;
                 }
             }));
-            timeline.setCycleCount(Timeline.INDEFINITE);
-            timeline.play();
+            timeUpdater.setCycleCount(Timeline.INDEFINITE);
+            timeUpdater.play();
+
+            // コロンを点滅させるFadeTransition
+            FadeTransition ft = new FadeTransition(Duration.seconds(1), colonLabel);
+            ft.setFromValue(1.0);
+            ft.setToValue(0.0);
+            ft.setCycleCount(Timeline.INDEFINITE);
+            ft.setAutoReverse(true);
+            ft.play();
+            
+            // 初期表示
+            updateTime();
         }
-        
+
         private void updateTime() {
             LocalTime now = LocalTime.now();
-            if (colonVisible) {
-                timeDisplayLabel.setText(now.format(timeFormatterWithColon));
-            } else {
-                timeDisplayLabel.setText(now.format(timeFormatterWithoutColon));
-            }
-            colonVisible = !colonVisible;
+            String formattedTime = now.format(timeFormatter);
+            timeLabel.setText(formattedTime.substring(0, 2));
+            minuteLabel.setText(formattedTime.substring(3));
         }
     }
     
@@ -148,8 +168,10 @@ public class DepDispSchedulerApp extends Application {
         public TaskDisp() {
             dynamicLabel = new Label("Loading System");
             dynamicLabel.getStyleClass().add("dynamic-label");
+            
             StackPane.setAlignment(dynamicLabel, Pos.BOTTOM_LEFT);
-            StackPane.setMargin(dynamicLabel, new Insets(0, 0, 280, 470));
+            // 予定リストを右側の枠内に配置
+            StackPane.setMargin(dynamicLabel, new Insets(0, 0, 10, 470));
         }
 
         public Label getLabel() {
@@ -179,18 +201,15 @@ public class DepDispSchedulerApp extends Application {
                         record.remark = fields[4].trim();
 
                         displayContent.append(String.format(
-                            "<span class='time-text'>%s:%s </span>" +
-                            "<span class='type-text'>%s </span>" +
-                            "<span class='detail-text'>%s </span>" +
-                            "<span class='remark-text'>%s</span><br>",
+                            "%s:%s %s %s %s\n",
                             record.hour, record.minute, record.type, record.detail, record.remark
                         ));
                     } else {
-                        displayContent.append(String.format("<span class='warning-text'>行 %d: 試運転</span><br>", lineCount.get()));
+                        displayContent.append(String.format("行 %d: 試運転\n", lineCount.get()));
                     }
                 });
 
-                dynamicLabel.setText("<html>" + displayContent.toString() + "</html>");
+                dynamicLabel.setText(displayContent.toString());
                 dynamicLabel.setStyle(null); // エラー表示のスタイルをリセット
                 System.out.println("CSVデータの表示を更新しました。");
 
