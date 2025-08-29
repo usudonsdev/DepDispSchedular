@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -60,7 +61,7 @@ public class DepDispSchedulerApp extends Application {
 
         // StackPaneに各要素を重ねて配置
         StackPane overlay = new StackPane();
-        overlay.getChildren().addAll(frame.getImageView(), taskDisp.getLabel(), timeDisp.getLabel());
+        overlay.getChildren().addAll(frame.getImageView(), taskDisp.getWebView(), timeDisp.getLabel());
         VBox.setVgrow(overlay, Priority.ALWAYS);
 
         root.getChildren().addAll(entry, fileChooserButton, overlay);
@@ -108,7 +109,7 @@ public class DepDispSchedulerApp extends Application {
             timeDisplayLabel = new Label();
             timeDisplayLabel.getStyleClass().add("time-display-label");
             StackPane.setAlignment(timeDisplayLabel, Pos.BOTTOM_LEFT);
-            StackPane.setMargin(timeDisplayLabel, new Insets(0, 0, 78, 55));
+            StackPane.setMargin(timeDisplayLabel, new Insets(0, 0, 78, 56));
             updateTime(); // 初期表示
         }
 
@@ -143,24 +144,22 @@ public class DepDispSchedulerApp extends Application {
     
     // 予定ラベルを管理するインナークラス
     private class TaskDisp {
-        private final Label dynamicLabel;
+        private final WebView webView;
 
         public TaskDisp() {
-            dynamicLabel = new Label("Loading System");
-            dynamicLabel.getStyleClass().add("dynamic-label");
-            StackPane.setAlignment(dynamicLabel, Pos.BOTTOM_LEFT);
-            StackPane.setMargin(dynamicLabel, new Insets(0, 0, 280, 470));
-        }
+            webView = new WebView();
+            StackPane.setAlignment(webView, Pos.BOTTOM_LEFT);
+            StackPane.setMargin(webView, new Insets(0, 0, 280, 470));
+            }
 
-        public Label getLabel() {
-            return dynamicLabel;
-        }
+        public WebView getWebView() {
+            return webView;
+            }
 
         public void displayError(String message) {
-            dynamicLabel.setText(message);
-            dynamicLabel.setStyle("-fx-text-fill: red;");
+            webView.getEngine().loadContent("<div style='color: red;'>" + message + "</div>");
         }
-        
+
         public void displayCsvContent(File file) {
             StringBuilder displayContent = new StringBuilder();
             AtomicInteger lineCount = new AtomicInteger();
@@ -186,19 +185,29 @@ public class DepDispSchedulerApp extends Application {
                             record.hour, record.minute, record.type, record.detail, record.remark
                         ));
                     } else {
-                        displayContent.append(String.format("<span class='warning-text'>行 %d: 試運転</span><br>", lineCount.get()));
+                            displayContent.append(String.format("<span class='warning-text'>行 %d: 試運転</span><br>", lineCount.get()));
                     }
                 });
 
-                dynamicLabel.setText("<html>" + displayContent.toString() + "</html>");
-                dynamicLabel.setStyle(null); // エラー表示のスタイルをリセット
-                System.out.println("CSVデータの表示を更新しました。");
+                webView.getEngine().loadContent(
+                    "<html><body style='background-color: transparent;'>" +
+                    "<style>" +
+                    "body { font-family: 'Inter', sans-serif; }" +
+                    ".time-text { color: #FFFFFF; font-weight: bold; font-size: 1.2em; }" +
+                    ".type-text { color: #FFFFFF; font-weight: bold; font-size: 1.2em; }" +
+                    ".detail-text { color: #00FF00; font-size: 1.2em; }" +
+                    ".remark-text { color: #FFFF00; font-size: 1.2em; }" +
+                    "</style>" +
+                    displayContent.toString() +
+                    "</body></html>"
+                    );
+                    System.out.println("CSVデータの表示を更新しました。");
 
             } catch (IOException e) {
                 System.err.println("エラー: ファイル '" + file.getAbsolutePath() + "' を開けませんでした。");
                 displayError("ファイルを開けませんでした。");
             }
-        }
+         }
     }
     
     // 画像フレームを管理するインナークラス
