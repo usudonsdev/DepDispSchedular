@@ -98,8 +98,8 @@ public class DepDispSchedulerApp extends Application {
 
     // 時刻ラベルを管理するインナークラス
     private class TimeDisp {
-        private final DateTimeFormatter timeFormatterWithColon = DateTimeFormatter.ofPattern("HH：mm");
-        private final DateTimeFormatter timeFormatterWithoutColon = DateTimeFormatter.ofPattern("HH　mm");
+        private final DateTimeFormatter timeFormatterWithColon = DateTimeFormatter.ofPattern("HH:mm");
+        private final DateTimeFormatter timeFormatterWithoutColon = DateTimeFormatter.ofPattern("HH mm");
         private final Label timeDisplayLabel;
         private int lastMinuteForEvent = -1;
         private boolean colonVisible = true;
