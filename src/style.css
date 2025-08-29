@@ -3,16 +3,16 @@
 }
 
 .dynamic-label {
-    -fx-font-family: "Sans";
+    -fx-font-family: "Consolas", "monospace";
     -fx-font-weight: bold;
     -fx-font-size: 50px;
     -fx-text-fill: #DDDDDD;
 }
 
 .time-display-label {
-    -fx-font-family: "Sans";
+    -fx-font-family: "Consolas", "monospace";
     -fx-font-weight: bold;
-    -fx-font-size: 75px;
+    -fx-font-size: 100px;
     -fx-text-fill: #DDDDDD;
 }
 

@@ -108,7 +108,7 @@ public class DepDispSchedulerApp extends Application {
             timeDisplayLabel = new Label();
             timeDisplayLabel.getStyleClass().add("time-display-label");
             StackPane.setAlignment(timeDisplayLabel, Pos.BOTTOM_LEFT);
-            StackPane.setMargin(timeDisplayLabel, new Insets(0, 0, 80, 44));
+            StackPane.setMargin(timeDisplayLabel, new Insets(0, 0, 78, 55));
             updateTime(); // 初期表示
         }
 
