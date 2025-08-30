@@ -61,7 +61,7 @@ public class DepDispSchedulerApp extends Application {
 
         // StackPaneに各要素を重ねて配置
         StackPane overlay = new StackPane();
-        overlay.getChildren().addAll(frame.getImageView(), taskDisp.getWebView(), timeDisp.getLabel());
+        overlay.getChildren().addAll(frame.getImageView(), taskDisp.getContainer(), timeDisp.getLabel());
         VBox.setVgrow(overlay, Priority.ALWAYS);
 
         root.getChildren().addAll(entry, fileChooserButton, overlay);
@@ -144,29 +144,31 @@ public class DepDispSchedulerApp extends Application {
     
     // 予定ラベルを管理するインナークラス
     private class TaskDisp {
-        private final WebView webView;
+        private final VBox container;
 
         public TaskDisp() {
-            webView = new WebView();
-            StackPane.setAlignment(webView, Pos.BOTTOM_LEFT);
-            StackPane.setMargin(webView, new Insets(0, 0, 280, 470));
-            }
-
-        public WebView getWebView() {
-            return webView;
-            }
-
-        public void displayError(String message) {
-            webView.getEngine().loadContent("<div style='color: red;'>" + message + "</div>");
+            container = new VBox();
+            container.getStyleClass().add("task-disp-container");
+            StackPane.setAlignment(container, Pos.BOTTOM_LEFT);
+            StackPane.setMargin(container, new Insets(100, 0, 0, 470));
         }
 
+        public VBox getContainer() {
+            return container;
+        }
+
+        public void displayError(String message) {
+            container.getChildren().clear();
+            Label errorLabel = new Label(message);
+            errorLabel.setStyle("-fx-text-fill: red;");
+            container.getChildren().add(errorLabel);
+        }
+        
         public void displayCsvContent(File file) {
-            StringBuilder displayContent = new StringBuilder();
-            AtomicInteger lineCount = new AtomicInteger();
+            container.getChildren().clear();
 
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 br.lines().forEach(line -> {
-                    lineCount.getAndIncrement();
                     String[] fields = line.split(",");
 
                     if (fields.length >= 5) {
@@ -177,37 +179,27 @@ public class DepDispSchedulerApp extends Application {
                         record.detail = fields[3].trim();
                         record.remark = fields[4].trim();
 
-                        displayContent.append(String.format(
-                            "<span class='time-text'>%s:%s </span>" +
-                            "<span class='type-text'>%s </span>" +
-                            "<span class='detail-text'>%s </span>" +
-                            "<span class='remark-text'>%s</span><br>",
-                            record.hour, record.minute, record.type, record.detail, record.remark
-                        ));
+                        Label lineLabel = new Label(
+                            String.format("%s:%s %s %s %s",
+                                record.hour, record.minute, record.type, record.detail, record.remark
+                            )
+                        );
+                        lineLabel.getStyleClass().add("task-label");
+                        container.getChildren().add(lineLabel);
                     } else {
-                            displayContent.append(String.format("<span class='warning-text'>行 %d: 試運転</span><br>", lineCount.get()));
+                        Label warningLabel = new Label(String.format("行 %d: 試運転", container.getChildren().size() + 1));
+                        warningLabel.setStyle("-fx-text-fill: orange;");
+                        container.getChildren().add(warningLabel);
                     }
                 });
-
-                webView.getEngine().loadContent(
-                    "<html><body style='background-color: transparent;'>" +
-                    "<style>" +
-                    "body { font-family: 'Inter', sans-serif; }" +
-                    ".time-text { color: #FFFFFF; font-weight: bold; font-size: 1.2em; }" +
-                    ".type-text { color: #FFFFFF; font-weight: bold; font-size: 1.2em; }" +
-                    ".detail-text { color: #00FF00; font-size: 1.2em; }" +
-                    ".remark-text { color: #FFFF00; font-size: 1.2em; }" +
-                    "</style>" +
-                    displayContent.toString() +
-                    "</body></html>"
-                    );
-                    System.out.println("CSVデータの表示を更新しました。");
+                
+                System.out.println("CSVデータの表示を更新しました。");
 
             } catch (IOException e) {
                 System.err.println("エラー: ファイル '" + file.getAbsolutePath() + "' を開けませんでした。");
                 displayError("ファイルを開けませんでした。");
             }
-         }
+        }
     }
     
     // 画像フレームを管理するインナークラス
