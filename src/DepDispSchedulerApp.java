@@ -64,7 +64,8 @@ public class DepDispSchedulerApp extends Application {
         overlay.getChildren().addAll(frame.getImageView(), taskDisp.getContainer(), timeDisp.getLabel());
         VBox.setVgrow(overlay, Priority.ALWAYS);
 
-        root.getChildren().addAll(entry, fileChooserButton, overlay);
+        //root.getChildren().addAll(entry, fileChooserButton, overlay);
+        root.getChildren().addAll(fileChooserButton, overlay);
 
         Scene scene = new Scene(root, 1500, 550);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
