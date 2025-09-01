@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -144,64 +145,76 @@ public class DepDispSchedulerApp extends Application {
     }
     
     // 予定ラベルを管理するインナークラス
-    private class TaskDisp {
-        private final VBox container;
+private class TaskDisp {
+    private final VBox container;
 
-        public TaskDisp() {
-            container = new VBox();
-            container.getStyleClass().add("task-disp-container");
-            StackPane.setAlignment(container, Pos.BOTTOM_LEFT);
-            StackPane.setMargin(container, new Insets(100, 0, 0, 470));
-        }
+    public TaskDisp() {
+        container = new VBox();
+        container.getStyleClass().add("task-disp-container");
+        StackPane.setAlignment(container, Pos.BOTTOM_LEFT);
+        StackPane.setMargin(container, new Insets(100, 0, 280, 470));
+    }
 
-        public VBox getContainer() {
-            return container;
-        }
+    public VBox getContainer() {
+        return container;
+    }
 
-        public void displayError(String message) {
-            container.getChildren().clear();
-            Label errorLabel = new Label(message);
-            errorLabel.setStyle("-fx-text-fill: red;");
-            container.getChildren().add(errorLabel);
-        }
-        
-        public void displayCsvContent(File file) {
-            container.getChildren().clear();
+    public void displayError(String message) {
+        container.getChildren().clear();
+        Label errorLabel = new Label(message);
+        errorLabel.setStyle("-fx-text-fill: red;");
+        container.getChildren().add(errorLabel);
+    }
+    
+    public void displayCsvContent(File file) {
+        container.getChildren().clear();
 
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                br.lines().forEach(line -> {
-                    String[] fields = line.split(",");
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            br.lines().forEach(line -> {
+                String[] fields = line.split(",");
 
-                    if (fields.length >= 5) {
-                        CsvRecord record = new CsvRecord();
-                        record.hour = fields[0].trim();
-                        record.minute = fields[1].trim();
-                        record.type = fields[2].trim();
-                        record.detail = fields[3].trim();
-                        record.remark = fields[4].trim();
+                if (fields.length >= 5) {
+                    CsvRecord record = new CsvRecord();
+                    record.hour = fields[0].trim();
+                    record.minute = fields[1].trim();
+                    record.type = fields[2].trim();
+                    record.detail = fields[3].trim();
+                    record.remark = fields[4].trim();
+                    
+                    // Create a VBox for each row to hold the labels horizontally
+                    HBox rowBox = new HBox(10); // HBox is used for horizontal layout, with 10px spacing
+                    rowBox.getStyleClass().add("task-row");
 
-                        Label lineLabel = new Label(
-                            String.format("%s:%s %s %s %s",
-                                record.hour, record.minute, record.type, record.detail, record.remark
-                            )
-                        );
-                        lineLabel.getStyleClass().add("task-label");
-                        container.getChildren().add(lineLabel);
-                    } else {
-                        Label warningLabel = new Label(String.format("行 %d: 試運転", container.getChildren().size() + 1));
-                        warningLabel.setStyle("-fx-text-fill: orange;");
-                        container.getChildren().add(warningLabel);
-                    }
-                });
-                
-                System.out.println("CSVデータの表示を更新しました。");
+                    // Create a Label for each part of the CSV record and apply a specific style class
+                    Label timeLabel = new Label(String.format("%s:%s", record.hour, record.minute));
+                    timeLabel.getStyleClass().add("time-text");
+                    
+                    Label typeLabel = new Label(record.type);
+                    typeLabel.getStyleClass().add("type-text");
 
-            } catch (IOException e) {
-                System.err.println("エラー: ファイル '" + file.getAbsolutePath() + "' を開けませんでした。");
-                displayError("ファイルを開けませんでした。");
-            }
+                    Label detailLabel = new Label(record.detail);
+                    detailLabel.getStyleClass().add("detail-text");
+
+                    Label remarkLabel = new Label(record.remark);
+                    remarkLabel.getStyleClass().add("remark-text");
+
+                    rowBox.getChildren().addAll(timeLabel, typeLabel, detailLabel, remarkLabel);
+                    container.getChildren().add(rowBox);
+                } else {
+                    Label warningLabel = new Label(String.format("行 %d: 試運転", container.getChildren().size() + 1));
+                    warningLabel.setStyle("-fx-text-fill: orange;");
+                    container.getChildren().add(warningLabel);
+                }
+            });
+            
+            System.out.println("CSVデータの表示を更新しました。");
+
+        } catch (IOException e) {
+            System.err.println("エラー: ファイル '" + file.getAbsolutePath() + "' を開けませんでした。");
+            displayError("ファイルを開けませんでした。");
         }
     }
+}
     
     // 画像フレームを管理するインナークラス
     private class Frame {

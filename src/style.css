@@ -19,8 +19,7 @@
 .time-text {
     -fx-font-size: 50px;
     -fx-font-weight: bold;
-    -fx-fill: #DDDDDD;
-}
+    -fx-text-fill: #DDDDDD;}
 
 .task-label {
     -fx-font-size: 50px; /* ここがフォントの大きさを決めています */
@@ -31,24 +30,24 @@
 .type-text {
     -fx-font-size: 30px;
     -fx-font-weight: bold;
-    -fx-fill: #DDDDDD;
+    -fx-text-fill: #DDDDDD;
     -fx-background-color: #0000FF;
 }
 
 .detail-text {
     -fx-font-size: 50px;
     -fx-font-weight: bold;
-    -fx-fill: #DDDDDD;
+    -fx-text-fill: #DDDDDD;
 }
 
 .remark-text {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-fill: #F15A22; /* オレンジ色 */
+    -fx-text-fill: #F15A22; /* オレンジ色 */
 }
 
 .warning-text {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-fill: orange;
+    -fx-text-fill: orange;
 }
