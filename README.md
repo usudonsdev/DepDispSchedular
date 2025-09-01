@@ -1,6 +1,6 @@
-## Getting Started
+## このソフトについて
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+発車標に見立てた予定表示、リマインド機能(実装予定)があります。
 
 ## Folder Structure
 
