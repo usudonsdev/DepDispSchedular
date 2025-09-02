@@ -6,14 +6,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-//import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -24,13 +22,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Objects;
-//import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class DepDispSchedulerApp extends Application {
 
-    private TaskDisp taskDisp; // taskDispのインスタンスを保持
-    private TimeDisp timeDisp; // timeDispのインスタンスを保持
+    private TaskDisp taskDispTop;
+    private TaskDisp taskDispBottom;
+    private TimeDisp timeDisp;
 
     public static void main(String[] args) {
         launch(args);
@@ -39,15 +39,9 @@ public class DepDispSchedulerApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Image Overlay App");
-
         primaryStage.setResizable(false);
-
         VBox root = new VBox(5);
         root.setPadding(new Insets(10));
-
-        TextField entry = new TextField();
-        entry.setPromptText("ここに文字を入力してください...");
-        VBox.setVgrow(entry, Priority.NEVER);
 
         Button fileChooserButton = new Button("CSVファイルを選択");
         FileChooser fileChooser = new FileChooser();
@@ -55,17 +49,19 @@ public class DepDispSchedulerApp extends Application {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         fileChooserButton.setOnAction(e -> onFileSelected(fileChooser.showOpenDialog(primaryStage)));
 
-        // インナークラスのインスタンス化
         Frame frame = new Frame();
-        taskDisp = new TaskDisp();
+        
+        // 上下にタスク表示を配置
+        // Pos.TOP_CENTERとPos.BOTTOM_CENTERで上下中央に配置
+        taskDispTop = new TaskDisp(Pos.BOTTOM_CENTER, new Insets(0, 0, 215, 480), 5); // 下部5行用
+        taskDispBottom = new TaskDisp(Pos.TOP_CENTER, new Insets(245, 0, 0, 480), 5); // 上部5行用
+
         timeDisp = new TimeDisp();
 
-        // StackPaneに各要素を重ねて配置
         StackPane overlay = new StackPane();
-        overlay.getChildren().addAll(frame.getImageView(), taskDisp.getContainer(), timeDisp.getLabel());
+        overlay.getChildren().addAll(frame.getImageView(), taskDispTop.getContainer(), taskDispBottom.getContainer(), timeDisp.getLabel());
         VBox.setVgrow(overlay, Priority.ALWAYS);
 
-        //root.getChildren().addAll(entry, fileChooserButton, overlay);
         root.getChildren().addAll(fileChooserButton, overlay);
 
         Scene scene = new Scene(root, 1500, 550);
@@ -73,22 +69,42 @@ public class DepDispSchedulerApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // 時刻表示を開始
         timeDisp.startTick();
     }
     
-    // CSVファイル選択時の処理
     private void onFileSelected(File file) {
         if (file == null) {
             System.out.println("ファイルが選択されませんでした。");
-            taskDisp.displayError("ファイルが選択されていません。");
+            taskDispTop.displayError("ファイルが選択されていません。");
+            taskDispBottom.displayError("ファイルが選択されていません。");
             return;
         }
         System.out.println("選択されたファイル: " + file.getAbsolutePath());
-        taskDisp.displayCsvContent(file);
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            List<String> lines = br.lines().collect(Collectors.toList());
+            
+            taskDispTop.clear();
+            taskDispBottom.clear();
+
+            int totalLines = lines.size();
+            int half = totalLines / 2;
+            
+            // 上部タスク表示
+            List<String> topLines = lines.subList(0, Math.min(half, 5));
+            taskDispTop.displayCsvContent(topLines);
+            
+            // 下部タスク表示
+            if (totalLines > half) {
+                List<String> bottomLines = lines.subList(half, totalLines);
+                taskDispBottom.displayCsvContent(bottomLines);
+            }
+        } catch (IOException e) {
+            System.err.println("エラー: ファイル '" + file.getAbsolutePath() + "' を開けませんでした。");
+            taskDispTop.displayError("ファイルを開けませんでした。");
+        }
     }
 
-    // CSVレコードの構造体（ヘルパークラス）
     private static class CsvRecord {
         String hour;
         String minute;
@@ -97,10 +113,6 @@ public class DepDispSchedulerApp extends Application {
         String remark;
     }
 
-
-    // --- インナークラスの定義 ---
-
-    // 時刻ラベルを管理するインナークラス
     private class TimeDisp {
         private final DateTimeFormatter timeFormatterWithColon = DateTimeFormatter.ofPattern("HH:mm");
         private final DateTimeFormatter timeFormatterWithoutColon = DateTimeFormatter.ofPattern("HH mm");
@@ -112,8 +124,8 @@ public class DepDispSchedulerApp extends Application {
             timeDisplayLabel = new Label();
             timeDisplayLabel.getStyleClass().add("time-display-label");
             StackPane.setAlignment(timeDisplayLabel, Pos.BOTTOM_LEFT);
-            StackPane.setMargin(timeDisplayLabel, new Insets(0, 0, 85, 56));
-            updateTime(); // 初期表示
+            StackPane.setMargin(timeDisplayLabel, new Insets(0, 0, 80, 56));
+            updateTime();
         }
 
         public Label getLabel() {
@@ -145,19 +157,29 @@ public class DepDispSchedulerApp extends Application {
         }
     }
     
-    // 予定ラベルを管理するインナークラス
     private class TaskDisp {
         private final VBox container;
+        private final Pos alignment;
+        private final Insets margin;
+        private final int maxLines;
 
-        public TaskDisp() {
-            container = new VBox();
+        public TaskDisp(Pos alignment, Insets margin, int maxLines) {
+            this.alignment = alignment;
+            this.margin = margin;
+            this.maxLines = maxLines;
+            // メインコンテナをVBoxにし、タスク行を縦に並べる
+            container = new VBox(20);
             container.getStyleClass().add("task-disp-container");
-            StackPane.setAlignment(container, Pos.BOTTOM_LEFT);
-            StackPane.setMargin(container, new Insets(100, 0, 280, 470));
         }
 
         public VBox getContainer() {
+            StackPane.setAlignment(container, alignment);
+            StackPane.setMargin(container, margin);
             return container;
+        }
+
+        public void clear() {
+            container.getChildren().clear();
         }
 
         public void displayError(String message) {
@@ -166,59 +188,49 @@ public class DepDispSchedulerApp extends Application {
             errorLabel.setStyle("-fx-text-fill: red;");
             container.getChildren().add(errorLabel);
         }
-    
-        public void displayCsvContent(File file) {
+        
+        public void displayCsvContent(List<String> lines) {
             container.getChildren().clear();
 
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                br.lines().forEach(line -> {
-                    String[] fields = line.split(",");
+            for (String line : lines) {
+                String[] fields = line.split(",");
 
-                    if (fields.length >= 5) {
-                        CsvRecord record = new CsvRecord();
-                        record.hour = fields[0].trim();
-                        record.minute = fields[1].trim();
-                        record.type = fields[2].trim();
-                        record.detail = fields[3].trim();
-                        record.remark = fields[4].trim();
+                if (fields.length >= 5) {
+                    CsvRecord record = new CsvRecord();
+                    record.hour = fields[0].trim();
+                    record.minute = fields[1].trim();
+                    record.type = fields[2].trim();
+                    record.detail = fields[3].trim();
+                    record.remark = fields[4].trim();
                     
-                        // Create a VBox for each row to hold the labels horizontally
-                        HBox rowBox = new HBox(20); // HBox is used for horizontal layout, with 10px spacing
-                        rowBox.getStyleClass().add("task-row");
-                        rowBox.setAlignment(Pos.CENTER_LEFT);
+                    // 各タスク項目を横一列に並べるHBoxを作成
+                    HBox taskItemBox = new HBox(15);
+                    taskItemBox.getStyleClass().add("task-item-box");
+                    taskItemBox.setAlignment(Pos.CENTER_LEFT);
 
-                        // Create a Label for each part of the CSV record and apply a specific style class
-                        Label timeLabel = new Label(String.format("%s:%s", record.hour, record.minute));
-                        timeLabel.getStyleClass().add("time-text");
+                    Label timeLabel = new Label(String.format("%s:%s", record.hour, record.minute));
+                    timeLabel.getStyleClass().add("time-text");
                     
-                        Label typeLabel = new Label(record.type);
-                        typeLabel.getStyleClass().add("type-text");
+                    Label typeLabel = new Label(record.type);
+                    typeLabel.getStyleClass().add("type-text");
 
-                        Label detailLabel = new Label(record.detail);
-                        detailLabel.getStyleClass().add("detail-text");
+                    Label detailLabel = new Label(record.detail);
+                    detailLabel.getStyleClass().add("detail-text");
 
-                        Label remarkLabel = new Label(record.remark);
-                        remarkLabel.getStyleClass().add("remark-text");
+                    Label remarkLabel = new Label(record.remark);
+                    remarkLabel.getStyleClass().add("remark-text");
 
-                        rowBox.getChildren().addAll(timeLabel, typeLabel, detailLabel, remarkLabel);
-                        container.getChildren().add(rowBox);
-                    } else {
-                        Label warningLabel = new Label(String.format("行 %d: 試運転", container.getChildren().size() + 1));
-                        warningLabel.setStyle("-fx-text-fill: orange;");
-                        container.getChildren().add(warningLabel);
-                    }
-                });
-            
-                System.out.println("CSVデータの表示を更新しました。");
-
-            } catch (IOException e) {
-                System.err.println("エラー: ファイル '" + file.getAbsolutePath() + "' を開けませんでした。");
-                displayError("ファイルを開けませんでした。");
+                    taskItemBox.getChildren().addAll(timeLabel, typeLabel, detailLabel, remarkLabel);
+                    container.getChildren().add(taskItemBox);
+                } else {
+                    Label warningLabel = new Label(String.format("行 %d: 試運転", container.getChildren().size() + 1));
+                    warningLabel.setStyle("-fx-text-fill: orange;");
+                    container.getChildren().add(warningLabel);
+                }
             }
         }
     }
     
-    // 画像フレームを管理するインナークラス
     private class Frame {
         private final ImageView imageView;
 
@@ -229,11 +241,10 @@ public class DepDispSchedulerApp extends Application {
                 imageView.setImage(image);
             } catch (Exception e) {
                 System.err.println("エラー: 画像ファイル DepDisp_frame.png を読み込めませんでした");
-                // 画像が見つからない場合の代替表示
                 Label errorLabel = new Label("画像読み込みエラー");
                 errorLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: red;");
                 StackPane.setAlignment(errorLabel, Pos.CENTER);
-                imageView.setFitWidth(400); // サイズを調整
+                imageView.setFitWidth(400);
                 imageView.setFitHeight(300);
             }
         }
