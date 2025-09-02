@@ -182,8 +182,9 @@ private class TaskDisp {
                     record.remark = fields[4].trim();
                     
                     // Create a VBox for each row to hold the labels horizontally
-                    HBox rowBox = new HBox(10); // HBox is used for horizontal layout, with 10px spacing
+                    HBox rowBox = new HBox(20); // HBox is used for horizontal layout, with 10px spacing
                     rowBox.getStyleClass().add("task-row");
+                    rowBox.setAlignment(Pos.CENTER_LEFT);
 
                     // Create a Label for each part of the CSV record and apply a specific style class
                     Label timeLabel = new Label(String.format("%s:%s", record.hour, record.minute));

@@ -17,25 +17,25 @@
 }
 
 .time-text {
-    -fx-font-size: 50px;
+    -fx-font-size: 90px;
     -fx-font-weight: bold;
     -fx-text-fill: #DDDDDD;}
 
 .task-label {
-    -fx-font-size: 50px; /* ここがフォントの大きさを決めています */
+    -fx-font-size: 90px; /* ここがフォントの大きさを決めています */
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
 
 .type-text {
-    -fx-font-size: 30px;
+    -fx-font-size: 50px;
     -fx-font-weight: bold;
     -fx-text-fill: #DDDDDD;
     -fx-background-color: #0000FF;
 }
 
 .detail-text {
-    -fx-font-size: 50px;
+    -fx-font-size: 90px;
     -fx-font-weight: bold;
     -fx-text-fill: #DDDDDD;
 }
