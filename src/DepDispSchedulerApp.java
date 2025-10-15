@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 public class DepDispSchedulerApp extends Application {
 
-    private TaskDisp taskDispTop;
+    private TaskDisp taskDispTop; 
     private TaskDisp taskDispBottom;
     private TimeDisp timeDisp;
 
