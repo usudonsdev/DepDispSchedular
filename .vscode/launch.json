@@ -8,10 +8,15 @@
             "type": "java",
             "name": "DepDispSchedulerApp",
             "request": "launch",
+            "mainClass": "main.java.DepDispSchedulerApp",
+            "projectName": "DepDispSchedular_java_33c53af6"
+        },
+        {
+            "type": "java",
+            "name": "DepDispSchedulerApp",
+            "request": "launch",
             "mainClass": "DepDispSchedulerApp",
-            "projectName": "DepDispSchedular_java_33c53af6",
-            "vmArgs": "--module-path \"C:\\Program Files\\Java\\javafx-sdk-24.0.2\\lib\" --add-modules javafx.controls,javafx.fxml"
-
+            "projectName": "DepDispSchedular_java_33c53af6"
         },
         {
             "type": "java",
@@ -31,8 +36,7 @@
             "name": "App",
             "request": "launch",
             "mainClass": "AppJavaFx",
-            "projectName": "DepDispSchedular_java_33c53af6",
-            "vmArgs": "--module-path \"C:\\Program Files\\Java\\javafx-sdk-24.0.2\\lib\" --add-modules javafx.controls,javafx.fxml"
+            "projectName": "DepDispSchedular_java_33c53af6"
         }
     ]
 }

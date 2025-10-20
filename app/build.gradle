@@ -1,0 +1,41 @@
+/*
+ * This is the build file for the 'app' subproject.
+ */
+
+plugins {
+    // Javaアプリケーション用プラグイン
+    id 'application'
+
+    // JavaFXプラグイン (バージョンを 0.1.0 に修正)
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+// JavaFXの設定
+javafx {
+    version = "21" // JDK 21 を使う
+    modules = [ 'javafx.controls', 'javafx.fxml' ] // 必要なモジュール
+}
+
+application {
+    // あなたのメインクラス（app/src/main/java の中にあるもの）
+    // パッケージ名がある場合は 'com.example.DepDispSchedulerApp' のように修正してください
+    mainClass = 'DepDispSchedulerApp'
+}
+
+// JUnit 5 (テスト用) の設定
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+testing {
+    suites {
+        test {
+            useJUnitJupiter()
+        }
+    }
+}
