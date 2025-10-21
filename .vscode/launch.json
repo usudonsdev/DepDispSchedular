@@ -8,6 +8,13 @@
             "type": "java",
             "name": "DepDispSchedulerApp",
             "request": "launch",
+            "mainClass": "DepDispSchedulerApp",
+            "projectName": "app"
+        },
+        {
+            "type": "java",
+            "name": "DepDispSchedulerApp",
+            "request": "launch",
             "mainClass": "main.java.DepDispSchedulerApp",
             "projectName": "DepDispSchedular_java_33c53af6"
         },

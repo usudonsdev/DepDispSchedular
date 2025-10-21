@@ -1,0 +1,62 @@
+.root {
+    -fx-font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+    -fx-background-color: #222128; /* GTK+の背景色に合わせる */
+    }
+
+/* タスク全体を縦に並べるコンテナ */
+.task-disp-container {
+    -fx-spacing: 50;
+    -fx-alignment: center;
+    }
+
+/* 各タスクの項目（時間、種類など）を横に並べるコンテナ /
+.task-item-box {
+    -fx-background-color: transparent;
+    -fx-padding: 15;
+    -fx-spacing: 20; / 各項目間の間隔を調整 
+    }*/
+
+.time-text {
+    -fx-font-size: 90px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #DDDDDD;
+    }
+
+.type-text {
+    -fx-font-size: 50px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #DDDDDD;
+    -fx-background-color: #0000FF;
+    }
+
+.detail-text {
+    -fx-font-size: 90px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #DDDDDD;
+    }
+
+.remark-text {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #F15A22; /* オレンジ色 */
+    }
+
+.time-display-label {
+    -fx-font-family: "Consolas", "monospace";
+    -fx-font-weight: bold;
+    -fx-font-size: 100px;
+    -fx-text-fill: #DDDDDD;
+    }
+
+.button {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    }
+
+.button:hover {
+    -fx-background-color: #3498db;
+    }
