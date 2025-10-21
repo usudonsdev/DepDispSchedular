@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            // ▼ この "RunJavaFX" という名前を覚える
+            "label": "RunJavaFX", 
+            "type": "shell",
+            "command": ".\\gradlew.bat run --no-configuration-cache",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

@@ -1,49 +1,21 @@
 {
-    // IntelliSense を使用して利用可能な属性を学べます。
-    // 既存の属性の説明をホバーして表示します。
-    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Run JavaFX (F5キーで実行)",
+
+            // ▼ "type" を "java" に変更
             "type": "java",
-            "name": "DepDispSchedulerApp",
-            "request": "launch",
-            "mainClass": "DepDispSchedulerApp",
-            "projectName": "app"
-        },
-        {
-            "type": "java",
-            "name": "DepDispSchedulerApp",
-            "request": "launch",
-            "mainClass": "main.java.DepDispSchedulerApp",
-            "projectName": "DepDispSchedular_java_33c53af6"
-        },
-        {
-            "type": "java",
-            "name": "DepDispSchedulerApp",
-            "request": "launch",
-            "mainClass": "DepDispSchedulerApp",
-            "projectName": "DepDispSchedular_java_33c53af6"
-        },
-        {
-            "type": "java",
-            "name": "AppFx",
-            "request": "launch",
-            "mainClass": "AppFx",
-            "projectName": "DepDispSchedular_java_33c53af6"
-        },
-        {
-            "type": "java",
-            "name": "Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "AppJavaFx",
-            "projectName": "DepDispSchedular_java_33c53af6"
+
+            // ▼ "request" を "attach" に変更
+            "request": "attach",
+
+            // ▼ "attach" に必要なダミーの情報 (このままコピーでOK)
+            "hostName": "localhost",
+            "port": 5005, // （このポートは使いません）
+
+            // ▼ これが本体。JavaFXアプリを起動するタスク
+            "preLaunchTask": "RunJavaFX"
         }
     ]
 }
