@@ -38,14 +38,14 @@ public class DepDispSchedulerApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Image Overlay App");
+        primaryStage.setTitle("予定表ディスプレイ");
         primaryStage.setResizable(false);
         VBox root = new VBox(5);
         root.setPadding(new Insets(10));
 
-        Button fileChooserButton = new Button("CSVファイルを選択");
+        Button fileChooserButton = new Button("設定");
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("CSVファイルを選択");
+        fileChooser.setTitle("設定");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         fileChooserButton.setOnAction(e -> onFileSelected(fileChooser.showOpenDialog(primaryStage)));
 
