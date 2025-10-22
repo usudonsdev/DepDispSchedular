@@ -67,8 +67,8 @@ public class DepDispSchedulerApp extends Application {
     private void onFileSelected(File file) {
         if (file == null) {
             System.out.println("ファイルが選択されませんでした。");
-            taskDispTop.displayError("ファイルが選択されていません。");
-            taskDispBottom.displayError("ファイルが選択されていません。");
+            taskDispTop.displayError("読み込みエラー");
+            taskDispBottom.displayError("読み込みエラー");
             return;
         }
         System.out.println("選択されたファイル: " + file.getAbsolutePath());
