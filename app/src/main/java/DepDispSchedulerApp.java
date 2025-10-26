@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 
 public class DepDispSchedulerApp extends Application {
 
-    private TaskDisp taskDispTop;
-    private TaskDisp taskDispBottom;
-    private TimeDisp timeDisp;
+    private TaskDisp taskDispTop;  // 上部タスク画面
+    private TaskDisp taskDispBottom; // 下部タスク画面
+    private TimeDisp timeDisp;      // 時刻画面
 
     public static void main(String[] args) {
         launch(args);

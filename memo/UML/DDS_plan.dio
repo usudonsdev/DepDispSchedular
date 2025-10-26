@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="M60W3sO0toBHubTDAc86" name="UseCase Diagram">
-        <mxGraphModel dx="1086" dy="495" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1084" dy="494" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -83,83 +83,52 @@
         </mxGraphModel>
     </diagram>
     <diagram id="CB2jr7SRh7VHUUYAdHlI" name="Class Diagram">
-        <mxGraphModel dx="1086" dy="495" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1275" dy="581" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="4LMuJCEwo5VO7b1Pdwf8-5" value="タスク管理" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="610" y="240" width="140" height="60" as="geometry"/>
+                <mxCell id="hXD3-A9VvAyuHlsXZQL6-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;フレーム&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;画像を読み込む()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;フレームを表示する()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="30" width="160" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="4LMuJCEwo5VO7b1Pdwf8-6" value="タスクを表示する()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="4LMuJCEwo5VO7b1Pdwf8-5">
-                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
+                <mxCell id="hXD3-A9VvAyuHlsXZQL6-3" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;制御部&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・上部タスク画面&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・下部タスク画面&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・時刻画面&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・システムの制御()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・CSVファイルを読み込む()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="330" y="10" width="160" height="130" as="geometry"/>
                 </mxCell>
-                <mxCell id="4LMuJCEwo5VO7b1Pdwf8-9" value="時刻管理" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="40" y="220" width="140" height="60" as="geometry"/>
+                <mxCell id="hXD3-A9VvAyuHlsXZQL6-5" value="" style="endArrow=none;html=1;exitX=1.017;exitY=0.407;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.006;entryY=0.42;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="hXD3-A9VvAyuHlsXZQL6-2" target="hXD3-A9VvAyuHlsXZQL6-3">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="270" y="410" as="sourcePoint"/>
+                        <mxPoint x="320" y="360" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="4LMuJCEwo5VO7b1Pdwf8-10" value="時刻を表示する()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="4LMuJCEwo5VO7b1Pdwf8-9">
-                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="4LMuJCEwo5VO7b1Pdwf8-13" value="フレーム" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="40" y="70" width="140" height="90" as="geometry"/>
-                </mxCell>
-                <mxCell id="4LMuJCEwo5VO7b1Pdwf8-14" value="背景画像を読み込む()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="4LMuJCEwo5VO7b1Pdwf8-13">
-                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="4LMuJCEwo5VO7b1Pdwf8-16" value="ウィンドウ上に配置する()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="4LMuJCEwo5VO7b1Pdwf8-13">
-                    <mxGeometry y="60" width="140" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="RmElXbloMYL4CUqhNM4P-15" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="4LMuJCEwo5VO7b1Pdwf8-17" target="4LMuJCEwo5VO7b1Pdwf8-5">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="RmElXbloMYL4CUqhNM4P-16" value="渡す" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RmElXbloMYL4CUqhNM4P-15">
-                    <mxGeometry x="-0.22" y="-1" relative="1" as="geometry">
+                <mxCell id="hXD3-A9VvAyuHlsXZQL6-6" value="フレームを生成する" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hXD3-A9VvAyuHlsXZQL6-5">
+                    <mxGeometry x="-0.0704" y="-2" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="4LMuJCEwo5VO7b1Pdwf8-17" value="データ記録" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="610" y="80" width="140" height="60" as="geometry"/>
+                <mxCell id="hXD3-A9VvAyuHlsXZQL6-7" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;データ記録&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・タスクの時間&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・タスクの分&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・タスクの種別&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・タスクの名前&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・タスクの詳細&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="610" y="10" width="160" height="130" as="geometry"/>
                 </mxCell>
-                <mxCell id="4LMuJCEwo5VO7b1Pdwf8-18" value="受け取ったデータを変数として持っておく()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="4LMuJCEwo5VO7b1Pdwf8-17">
-                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="RmElXbloMYL4CUqhNM4P-7" value="制御部" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="320" y="70" width="140" height="90" as="geometry"/>
-                </mxCell>
-                <mxCell id="RmElXbloMYL4CUqhNM4P-8" value="ファイルを読み込む()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="RmElXbloMYL4CUqhNM4P-7">
-                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="RmElXbloMYL4CUqhNM4P-9" value="配置の指示を出す()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="RmElXbloMYL4CUqhNM4P-7">
-                    <mxGeometry y="60" width="140" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="RmElXbloMYL4CUqhNM4P-17" style="edgeStyle=none;html=1;" edge="1" parent="1" source="RmElXbloMYL4CUqhNM4P-8" target="4LMuJCEwo5VO7b1Pdwf8-18">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="RmElXbloMYL4CUqhNM4P-18" value="渡す" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RmElXbloMYL4CUqhNM4P-17">
-                    <mxGeometry x="-0.0937" y="1" relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                <mxCell id="hXD3-A9VvAyuHlsXZQL6-8" value="" style="endArrow=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="hXD3-A9VvAyuHlsXZQL6-3" target="hXD3-A9VvAyuHlsXZQL6-7">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="560" y="130" as="sourcePoint"/>
+                        <mxPoint x="610" y="80" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="RmElXbloMYL4CUqhNM4P-19" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="RmElXbloMYL4CUqhNM4P-9" target="4LMuJCEwo5VO7b1Pdwf8-16">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="RmElXbloMYL4CUqhNM4P-20" value="配置場所" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RmElXbloMYL4CUqhNM4P-19">
-                    <mxGeometry x="0.1286" y="1" relative="1" as="geometry">
-                        <mxPoint as="offset"/>
+                <mxCell id="hXD3-A9VvAyuHlsXZQL6-9" value="受け渡し" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hXD3-A9VvAyuHlsXZQL6-8">
+                    <mxGeometry x="0.3873" relative="1" as="geometry">
+                        <mxPoint x="-24" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="RmElXbloMYL4CUqhNM4P-23" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="RmElXbloMYL4CUqhNM4P-9" target="4LMuJCEwo5VO7b1Pdwf8-10">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="hXD3-A9VvAyuHlsXZQL6-10" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;タスク画面表示&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・上部タスク画面&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・下部タスク画面&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・時刻画面&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;画像を読み込む()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;フレームを表示する()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="610" y="180" width="160" height="130" as="geometry"/>
                 </mxCell>
-                <mxCell id="RmElXbloMYL4CUqhNM4P-24" value="配置場所" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="RmElXbloMYL4CUqhNM4P-23">
-                    <mxGeometry x="-0.0092" y="-3" relative="1" as="geometry">
-                        <mxPoint as="offset"/>
-                    </mxGeometry>
+                <mxCell id="hXD3-A9VvAyuHlsXZQL6-11" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;タスク画面表示&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・CSSファイル&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;・&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;画像を読み込む()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;フレームを表示する()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="160" width="160" height="130" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
     <diagram id="v2T0L5qun_hZbjIyWiHm" name="Sequence Diagram">
-        <mxGraphModel dx="1086" dy="495" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1084" dy="494" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
