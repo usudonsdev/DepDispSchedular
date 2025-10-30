@@ -17,7 +17,7 @@ repositories {
 // JavaFXの設定
 javafx {
     version = "21" // JDK 21 を使う
-    modules = [ 'javafx.controls', 'javafx.fxml' ] // 必要なモジュール
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.media' ] // 必要なモジュール
 }
 
 application {
