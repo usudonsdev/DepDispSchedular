@@ -3,6 +3,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -43,16 +44,28 @@ public class DepDispSchedulerApp extends Application {
         VBox root = new VBox(5);
         root.setPadding(new Insets(10));
 
-        // (修正点 2) 
+        // --- 修正箇所 1: HBoxでボタンをまとめる ---
+        HBox buttonBox = new HBox(10); // 
+        buttonBox.setAlignment(Pos.CENTER_LEFT);
+
+        // 
         Button fileChooserButton = new Button("設定");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("設定");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-        
-        // onFileSelected が呼び出されるように設定
         fileChooserButton.setOnAction(e -> onFileSelected(fileChooser.showOpenDialog(primaryStage)));
 
-        // --- ここから下はあなたのコードと合っています ---
+        // 
+        Button testAlertButton = new Button("テスト");
+        testAlertButton.setOnAction(e -> {
+            System.out.println("--- 警告テスト ---");
+            alertDisp.show("予定がまいります");
+            alertSound.play();
+        });
+
+        // 
+        buttonBox.getChildren().addAll(fileChooserButton, testAlertButton);
+
         alertDisp = new AlertDisp();
         alertSound = new AlertSound("alert.wav");
 
@@ -75,7 +88,7 @@ public class DepDispSchedulerApp extends Application {
         // --- ここまで ---
 
         // (修正点 3) 
-        root.getChildren().addAll(fileChooserButton, overlay);
+        root.getChildren().addAll(buttonBox, overlay); //
 
         // (修正点 4) 
         Scene scene = new Scene(root, 1500, 550);

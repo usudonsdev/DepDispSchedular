@@ -82,7 +82,7 @@ public class TimeDisp {
                     System.out.println("★★★ 時間です！ ★★★");
                     
                     if (alertMessage == null) {
-                        alertMessage = "時間です: " + task.detail;
+                        alertMessage = "予定がまいります";
                     } else {
                         alertMessage += ", " + task.detail; // 
                     }

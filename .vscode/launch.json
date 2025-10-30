@@ -11,8 +11,8 @@
             "request": "attach",
 
             // ▼ "attach" に必要なダミーの情報 (このままコピーでOK)
-            "hostName": "localhost",
-            "port": 5005, // （このポートは使いません）
+            //"hostName": "localhost",
+            //"port": 5005, // （このポートは使いません）
 
             // ▼ これが本体。JavaFXアプリを起動するタスク
             "preLaunchTask": "RunJavaFX"
