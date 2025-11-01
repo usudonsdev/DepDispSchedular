@@ -43,7 +43,7 @@ public class AlertDisp {
         blinkTransition = new FadeTransition(Duration.millis(250), warningLabel); // 0.25秒で消灯
         blinkTransition.setFromValue(1.0); // 
         blinkTransition.setToValue(0.1);   // 
-        blinkTransition.setCycleCount(8);  // 4回 (消灯→点灯→消灯→点灯) = 2回点滅
+        blinkTransition.setCycleCount(9);  // 4回 (消灯→点灯→消灯→点灯) = 2回点滅
         blinkTransition.setAutoReverse(true); // 
         
         // (変更点 1) 
